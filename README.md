@@ -2,11 +2,6 @@
 
 Production-grade web portal, licensing system, and offline AI extensions for **Pixel Pro**, built exclusively for **Adobe Premiere Pro** editors.
 
-- **GitHub Repository**: [creativeshahid10/Pixel-Pro](https://github.com/creativeshahid10/Pixel-Pro)
-- **Supabase Cloud Sync**: Real-time license keys, multi-device activation, and subscription management.
-
----
-
 ## 💎 Architecture & Separation: Only Premiere Pro
 
 In this repository, **all tools, plugins, and AI utilities are 100% exclusive to Adobe Premiere Pro** (all After Effects elements have been completely removed).
@@ -40,41 +35,6 @@ To solve the common `Python: NOT INSTALLED`, `FFmpeg: NOT INSTALLED`, or `Whispe
 - **macOS (`installer/mac/install.command`)**:
   - Configures macOS permissions, copies to `~/Library/Application Support/Adobe/CEP/extensions/PixelPro`.
   - Automatically installs FFmpeg and sets up local Python + Whisper dependencies.
-
----
-
-## ⚡ Supabase Setup & Database Migration
-
-All database tables, Row-Level Security (RLS) policies, and the license verification RPC function are pre-built in `supabase/schema.sql`.
-
-### To apply the database schema:
-1. Open your Supabase Dashboard:
-   `https://supabase.com/dashboard/project/<your-project-id>/sql`
-2. Copy the entire contents of `supabase/schema.sql`.
-3. Paste into the SQL Editor and click **Run**.
-4. The following tables and policies will be active:
-   - `profiles`
-   - `premiere_plugins`
-   - `subscription_plans`
-   - `user_subscriptions`
-   - `plugin_licenses`
-   - `license_activations`
-   - `verify_premiere_license()` (RPC function for Premiere Pro panel activation)
-
----
-
-## ⚙️ Environment Variables
-
-Create `.env` in the root directory (or copy from `.env.example`):
-
-```env
-VITE_SUPABASE_URL=https://your-project-id.supabase.co
-VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_PUBLIC_KEY
-VITE_PROJECT_NAME="Pixel Pro"
-VITE_PROJECT_ID="your-project-id"
-VITE_PROJECT_REGION="ap-northeast-1"
-VITE_RAZORPAY_KEY_ID="rzp_test_1DP5mmOlF5G5ag"
-```
 
 ---
 
