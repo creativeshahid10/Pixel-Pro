@@ -1,11 +1,9 @@
 # Pixel Pro — Premiere Pro Exclusive Suite & AI Tools
 
-Production-grade web portal and licensing system for **Pixel Pro**, built exclusively for **Adobe Premiere Pro** editors.
+Production-grade web portal, licensing system, and offline AI extensions for **Pixel Pro**, built exclusively for **Adobe Premiere Pro** editors.
 
 - **GitHub Repository**: [creativeshahid10/Pixel-Pro](https://github.com/creativeshahid10/Pixel-Pro)
-- **Supabase Project**: `Pixel Pro` (`fvvznnjhwaztqekohzpk`)
-- **Supabase Region**: `ap-northeast-1`
-- **Supabase URL**: `https://fvvznnjhwaztqekohzpk.supabase.co`
+- **Supabase Cloud Sync**: Real-time license keys, multi-device activation, and subscription management.
 
 ---
 
@@ -30,13 +28,28 @@ In this repository, **all tools, plugins, and AI utilities are 100% exclusive to
 
 ---
 
+## 🛠️ 1-Click Installers (Windows & Mac)
+
+To solve the common `Python: NOT INSTALLED`, `FFmpeg: NOT INSTALLED`, or `Whisper: NOT INSTALLED` problem on fresh user machines, Pixel Pro includes automated 1-click setup scripts:
+
+- **Windows (`installer/windows/install.bat`)**:
+  - Enables Adobe PlayerDebugMode across all Premiere Pro versions (CSXS.9 to CSXS.18).
+  - Copies CEP extension to `%APPDATA%\Adobe\CEP\extensions\PixelPro`.
+  - Automatically downloads standalone portable FFmpeg to `bin/`.
+  - Sets up an isolated Python environment and installs `faster-whisper` (4x faster with 70% less RAM).
+- **macOS (`installer/mac/install.command`)**:
+  - Configures macOS permissions, copies to `~/Library/Application Support/Adobe/CEP/extensions/PixelPro`.
+  - Automatically installs FFmpeg and sets up local Python + Whisper dependencies.
+
+---
+
 ## ⚡ Supabase Setup & Database Migration
 
 All database tables, Row-Level Security (RLS) policies, and the license verification RPC function are pre-built in `supabase/schema.sql`.
 
 ### To apply the database schema:
 1. Open your Supabase Dashboard:
-   [https://supabase.com/dashboard/project/fvvznnjhwaztqekohzpk/sql](https://supabase.com/dashboard/project/fvvznnjhwaztqekohzpk/sql)
+   `https://supabase.com/dashboard/project/<your-project-id>/sql`
 2. Copy the entire contents of `supabase/schema.sql`.
 3. Paste into the SQL Editor and click **Run**.
 4. The following tables and policies will be active:
@@ -55,20 +68,17 @@ All database tables, Row-Level Security (RLS) policies, and the license verifica
 Create `.env` in the root directory (or copy from `.env.example`):
 
 ```env
-VITE_SUPABASE_URL=https://fvvznnjhwaztqekohzpk.supabase.co
+VITE_SUPABASE_URL=https://your-project-id.supabase.co
 VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_PUBLIC_KEY
 VITE_PROJECT_NAME="Pixel Pro"
-VITE_PROJECT_ID="fvvznnjhwaztqekohzpk"
+VITE_PROJECT_ID="your-project-id"
 VITE_PROJECT_REGION="ap-northeast-1"
 VITE_RAZORPAY_KEY_ID="rzp_test_1DP5mmOlF5G5ag"
 ```
 
-> **Note**: You can copy your Supabase Anon/Public Key from:
-> [https://supabase.com/dashboard/project/fvvznnjhwaztqekohzpk/settings/api](https://supabase.com/dashboard/project/fvvznnjhwaztqekohzpk/settings/api)
-
 ---
 
-## 🚀 Running the Project
+## 🚀 Running the Web Portal
 
 ```bash
 # Install dependencies
