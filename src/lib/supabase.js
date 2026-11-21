@@ -219,6 +219,82 @@ export async function getCustomerDataByEmail(email) {
 }
 
 /**
+ * Deactivate a machine slot (2-device limit reset)
+ */
+export async function deactivateMachine(licenseId, machineId) {
+  if (!supabase) return { success: true, simulated: true };
+
+  try {
+    const { data, error } = await supabase.rpc('deactivate_device', {
+      p_license_id: licenseId,
+      p_machine_id: machineId
+    });
+
+    if (error) {
+      // Fallback direct delete
+      const { error: delError } = await supabase
+        .from('license_activations')
+        .delete()
+        .eq('license_id', licenseId)
+        .eq('machine_id', machineId);
+
+      if (delError) throw delError;
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error('Failed to deactivate machine:', err);
+    return { success: false, error: err.message };
+  }
+}
+
+/**
+ * Record a Major Add-on Upgrade purchase
+ */
+export async function recordAddonPurchase({
+  email,
+  fullName,
+  phone,
+  addonId,
+  amountPaid,
+  currency = 'INR',
+  paymentId,
+  orderId
+}) {
+  if (!supabase) return { success: true, simulated: true };
+
+  try {
+    const licenseKey = generateFormattedKey('PXUPG');
+    const { data, error } = await supabase
+      .from('plugin_licenses')
+      .insert({
+        license_key: licenseKey,
+        email,
+        full_name: fullName,
+        phone,
+        plugin_id: addonId,
+        license_type: 'standalone',
+        max_devices: 2,
+        is_active: true,
+        expires_at: null
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return {
+      success: true,
+      license: data,
+      licenseKey
+    };
+  } catch (err) {
+    console.error('Failed to record add-on purchase:', err);
+    return { success: false, error: err.message };
+  }
+}
+
+/**
  * Helper to generate random readable license key
  */
 export function generateFormattedKey(prefix = 'PXPRO') {

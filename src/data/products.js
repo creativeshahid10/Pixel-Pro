@@ -219,6 +219,48 @@ export const PRODUCTS = [
   }
 ];
 
+// 3. MAJOR PAID UPGRADES / ADD-ON MODULES (Pay-per-Unlock Architecture)
+export const MAJOR_ADDONS = [
+  {
+    id: "pixel-vocal-isolator",
+    name: "AI Vocal & Music Stems Isolator v3.0",
+    badge: "New Major Upgrade",
+    description: "Separate dialogue, background music, and room reverb into isolated audio tracks right on your Premiere timeline in 1-click.",
+    priceInr: 299,
+    salePriceInr: 199,
+    priceUsd: 4,
+    salePriceUsd: 2.5,
+    version: "3.0.0",
+    releaseDate: "November 2026",
+    isMajorUpgrade: true,
+    highlights: [
+      "1-Click Dialogue & Vocals Extraction",
+      "Stems separator (Vocals, Drums, Bass, Instruments)",
+      "Zero internet connection required (Local AI)",
+      "Lifetime module unlock once purchased"
+    ]
+  },
+  {
+    id: "pixel-3d-cinema-luts",
+    name: "3D Cinema LUTs & HDR Engine v2.0",
+    badge: "Hollywood Color Grade",
+    description: "85+ high-fidelity Hollywood film emulate profiles (Arri Alexa, Kodak 2383, Teal & Orange) with dynamic range mapping.",
+    priceInr: 249,
+    salePriceInr: 149,
+    priceUsd: 3.5,
+    salePriceUsd: 2,
+    version: "2.0.0",
+    releaseDate: "November 2026",
+    isMajorUpgrade: true,
+    highlights: [
+      "85+ calibrated 3D cube LUTs for Premiere",
+      "Dynamic Rec.709 to Rec.2020 HDR conversion",
+      "Skin-tone protector and highlight rolloff",
+      "One-click batch sequence grading"
+    ]
+  }
+];
+
 export const COMPARISON_FEATURES = [
   { feature: "Target Software", pixel: "Dedicated Premiere Pro Only", competitors: "Bloated multi-app or generic" },
   { feature: "AI Subtitles (Offline)", pixel: "Included (Local GPU / 99 Langs)", competitors: "$15-$30/mo Cloud API" },

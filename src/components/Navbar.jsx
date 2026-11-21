@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CONFIG } from '../config';
-import { Zap, Menu, X, Sparkles, ChevronDown, Key, Database } from 'lucide-react';
+import { Zap, Menu, X, Sparkles, ChevronDown, Key, Database, Laptop } from 'lucide-react';
 
 export default function Navbar({ currentRoute, navigate, currency, setCurrency }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -69,6 +69,22 @@ export default function Navbar({ currentRoute, navigate, currency, setCurrency }
               <span>Subscriptions</span>
               <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800">
                 All-Access
+              </span>
+            </button>
+
+            {/* Central Hub & Device Manager */}
+            <button
+              onClick={() => handleNav('hub')}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-colors ${
+                currentRoute === 'hub' 
+                  ? 'text-emerald-700 bg-emerald-50' 
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-50'
+              }`}
+            >
+              <Laptop className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Hub &amp; Devices</span>
+              <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-slate-900 text-white">
+                2-Slot
               </span>
             </button>
 
@@ -217,6 +233,13 @@ export default function Navbar({ currentRoute, navigate, currency, setCurrency }
           >
             <span>Premiere Pro Subscriptions</span>
             <span className="text-[10px] bg-emerald-200 px-2 py-0.5 rounded">All-Access</span>
+          </button>
+          <button
+            onClick={() => handleNav('hub')}
+            className="w-full text-left px-3 py-2 text-sm font-bold text-slate-900 rounded-lg bg-slate-100 flex items-center justify-between"
+          >
+            <span>Hub &amp; 2-Device Manager</span>
+            <span className="text-[10px] bg-slate-900 text-white px-2 py-0.5 rounded">Active Slots</span>
           </button>
 
           <div className="pt-2 pb-1 text-[11px] font-bold uppercase text-slate-400 px-3">

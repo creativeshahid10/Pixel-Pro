@@ -11,6 +11,7 @@ import SpeedDialPage from './pages/SpeedDialPage';
 import DiskCleanerPage from './pages/DiskCleanerPage';
 import FreePluginsPage from './pages/FreePluginsPage';
 import PortalPage from './pages/PortalPage';
+import HubPage from './pages/HubPage';
 import PayPage from './pages/PayPage';
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
       if (path === 'subscriptions') return 'subscriptions';
+      if (path === 'hub') return 'hub';
       if (path === 'pixel-ultimate') return 'pixel-ultimate';
       if (path === 'pixel-autocut') return 'pixel-autocut';
       if (path === 'pixel-subtitles') return 'pixel-subtitles';
@@ -155,6 +157,15 @@ export default function App() {
 
         {currentRoute === 'portal' && (
           <PortalPage navigate={navigate} />
+        )}
+
+        {currentRoute === 'hub' && (
+          <HubPage
+            navigate={navigate}
+            currency={currency}
+            onSelectProduct={handleSelectProduct}
+            onSelectPlan={handleSelectPlan}
+          />
         )}
 
         {currentRoute === 'pay' && (
