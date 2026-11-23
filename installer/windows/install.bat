@@ -52,19 +52,28 @@ if not exist "%BIN_DIR%\ffmpeg.exe" (
     echo [OK] Bundled FFmpeg is already installed.
 )
 
-:: 4. Check & Install Python Runtime
-echo [*] Checking Python runtime...
+:: 4. Check & Install Python Runtime (Requires Python >= 3.10)
+echo [*] Checking Python runtime version...
 set "PYTHON_EXE=python"
-python --version >nul 2>&1
+set "NEED_PYTHON=0"
+
+python -c "import sys; exit(0 if sys.version_info >= (3, 10) and sys.version_info < (3, 13) else 1)" >nul 2>&1
 if !errorlevel! neq 0 (
-    echo [!] Python not detected. Downloading Python 3.10 silent installer...
+    set "NEED_PYTHON=1"
+)
+
+if "!NEED_PYTHON!"=="1" (
+    echo [!] Python 3.10+ not detected (system has an older version or Python is missing).
+    echo [*] Downloading Python 3.10.11 64-bit installer...
     powershell -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object System.Net.WebClient).DownloadFile('https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe', '%TEMP%\python_setup.exe')"
-    echo [*] Installing Python silently with PATH configuration...
+    echo [*] Installing Python 3.10 silently with PATH configuration...
     "%TEMP%\python_setup.exe" /quiet InstallAllUsers=0 PrependPath=1 Include_test=0 Shortcuts=0
     del /Q "%TEMP%\python_setup.exe" >nul 2>&1
     set "PYTHON_EXE=%LOCALAPPDATA%\Programs\Python\Python310\python.exe"
+    if not exist "!PYTHON_EXE!" set "PYTHON_EXE=py -3.10"
+    echo [OK] Python 3.10 successfully configured.
 ) else (
-    echo [OK] Python is already installed.
+    echo [OK] Compatible Python 3.10+ detected.
 )
 
 :: 5. Create Isolated Virtual Environment for Whisper Engine (Zero Conflict Guarantee)
